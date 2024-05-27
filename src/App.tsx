@@ -6,6 +6,7 @@ import { Button } from './components/Button'
 import { Input } from './components/Input'
 import { ListHeader } from './components/List/ListHeader'
 import { Empty } from './components/List/Empty'
+import { Item } from './components/List/Item'
 
 export function App() {
   return (
@@ -22,7 +23,10 @@ export function App() {
 
         <div className={styles.tasksList}>
           <ListHeader />
-          <Empty />
+          {/*<Empty />*/}
+          <Item />
+          <Item />
+          <Item />
         </div>
       </section>
     </main>
