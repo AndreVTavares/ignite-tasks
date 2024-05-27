@@ -35,6 +35,7 @@ export function App() {
     }
 
     setTasks([...tasks, newTask])
+    setInputValue('')
   }
 
   function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
@@ -43,12 +44,34 @@ export function App() {
     setInputValue(input)
   }
 
+  function handleRemoveTask(id: string) {
+    const filtredTasks = tasks.filter((task) => task.id !== id)
+
+    if (!confirm('Deseja mesmo deletar essa Task?')) {
+      return
+    }
+
+    setTasks(filtredTasks)
+  }
+
+  function handleToggleTask({ id, value }: { id: string; value: boolean }) {
+    const toggledTasks = tasks.map((task) => {
+      if (task.id === id) {
+        return { ...task, isChecked: value }
+      }
+
+      return { ...task }
+    })
+
+    setTasks(toggledTasks)
+  }
+
   return (
     <main>
       <Header />
       <section className={styles.content}>
         <div className={styles.newTask}>
-          <Input onChange={handleInputChange} />
+          <Input value={inputValue} onChange={handleInputChange} />
           <Button onClick={handleNewTask}>
             Criar
             <img src={plus} alt="" />
@@ -56,11 +79,18 @@ export function App() {
         </div>
 
         <div className={styles.tasksList}>
-          <ListHeader />
+          <ListHeader taskCounter={tasks.length} checkedTaskCounter={0} />
           {/*<Empty />*/}
           {tasks.length > 0 ? (
             tasks.map((task) => {
-              return <Item key={task.id} data={task} />
+              return (
+                <Item
+                  key={task.id}
+                  data={task}
+                  removeTask={handleRemoveTask}
+                  toggleTaskStatus={handleToggleTask}
+                />
+              )
             })
           ) : (
             <Empty />
