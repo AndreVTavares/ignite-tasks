@@ -23,6 +23,14 @@ export function App() {
   const [tasks, setTasks] = useState<Task[]>([])
   const [inputValue, setInputValue] = useState('')
 
+  const checkedTaskTotal = tasks.reduce((accumulator, task) => {
+    if (task.isChecked) {
+      return accumulator + 1
+    }
+
+    return accumulator
+  }, 0)
+
   function handleNewTask() {
     if (!inputValue) {
       return
@@ -79,7 +87,10 @@ export function App() {
         </div>
 
         <div className={styles.tasksList}>
-          <ListHeader taskCounter={tasks.length} checkedTaskCounter={0} />
+          <ListHeader
+            taskCounter={tasks.length}
+            checkedTaskCounter={checkedTaskTotal}
+          />
           {/*<Empty />*/}
           {tasks.length > 0 ? (
             tasks.map((task) => {
