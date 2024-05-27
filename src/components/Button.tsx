@@ -5,6 +5,10 @@ type Props = React.DetailedHTMLProps<
   HTMLButtonElement
 >
 
-export function Button({ children }: Props) {
-  return <button className={styles.container}>{children}</button>
+export function Button({ children, ...rest }: Props) {
+  return (
+    <button className={styles.container} {...rest}>
+      {children}
+    </button>
+  )
 }

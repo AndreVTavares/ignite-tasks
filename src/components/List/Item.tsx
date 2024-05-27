@@ -1,8 +1,14 @@
 import { Trash, Check } from '@phosphor-icons/react'
 
+import { Task } from '../../App'
+
 import styles from './Item.module.css'
 
-export function Item() {
+interface ItemProps {
+  data: Task
+}
+
+export function Item({ data }: ItemProps) {
   return (
     <div className={styles.container}>
       <div>
@@ -12,10 +18,7 @@ export function Item() {
             <Check size={12} />
           </span>
           <p className={`${styles.paragraph} ${styles['paragraph-checked']}`}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque,
-            quia sequi adipisci vel maiores facere magni minima! Mollitia
-            aspernatur rerum iure facere quisquam accusantium, reiciendis iusto,
-            corporis consequatur, blanditiis modi.
+            {data.text}
           </p>
         </label>
       </div>
