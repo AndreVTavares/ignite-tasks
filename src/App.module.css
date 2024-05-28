@@ -23,3 +23,14 @@
   flex-direction: column;
   gap: 1.5rem;
 }
+
+@media (max-width: 767px) {
+  .content {
+    padding: 1rem;
+  }
+
+  .newTask input,
+  .newTask button {
+    transform: translateY(-80%);
+  }
+}

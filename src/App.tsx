@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 
 import { v4 as uuid } from 'uuid'
 
@@ -31,7 +31,8 @@ export function App() {
     return accumulator
   }, 0)
 
-  function handleNewTask() {
+  function handleNewTask(event: FormEvent) {
+    event?.preventDefault()
     if (!inputValue) {
       return
     }
@@ -78,13 +79,15 @@ export function App() {
     <main>
       <Header />
       <section className={styles.content}>
-        <div className={styles.newTask}>
-          <Input value={inputValue} onChange={handleInputChange} />
-          <Button onClick={handleNewTask}>
-            Criar
-            <img src={plus} alt="" />
-          </Button>
-        </div>
+        <form onSubmit={handleNewTask}>
+          <div className={styles.newTask}>
+            <Input value={inputValue} onChange={handleInputChange} />
+            <Button type="submit">
+              Criar
+              <img src={plus} alt="" />
+            </Button>
+          </div>
+        </form>
 
         <div className={styles.tasksList}>
           <ListHeader
